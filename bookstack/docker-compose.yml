@@ -1,0 +1,30 @@
+# docker-compose file to start up BookStack app in https://wiki.example.com
+# to start the container run:
+#    docker-compose up -d
+#
+# Note: docker container name is sourced from the .env file in this directory.
+#
+# Note2: containrrr/watchtower service will auto update this container
+
+version: "2.4"
+
+services:
+  wiki:
+    image: rsubr/php-apache-ubuntu:jammy
+    container_name: wiki.example.com
+    restart: always
+
+    volumes:
+      - ./www:/var/www
+      - ./www/public:/var/www/html
+
+    mem_limit: 2G
+
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.wiki.rule=Host(`wiki.example.com`)
+      - traefik.http.routers.wiki.tls=true
+      - traefik.http.routers.wiki.tls.certresolver=lets-encrypt
+      # authenticate all requests before passing it to the backend servers
+      -  traefik.http.routers.wiki.middlewares=google-oauth2@file
