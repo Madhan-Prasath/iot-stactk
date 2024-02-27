@@ -1,0 +1,48 @@
+  version: "3"
+  services: 
+    influxdb:
+      image: influxdb
+      container_name: influxdb.example.com
+      restart: always
+      ports:
+        - "8086:8086"        
+      volumes:
+        - "./influxdb-data:/var/lib/influxdb"
+      environment:
+        - INFLUXDB_ADMIN_USER_PASSWORD=test@123
+        - INFLUXDB_USER=test
+        - INFLUXDB_USER_PASSWORD=test@123
+        - INFLUXDB_DB=test
+        - INFLUXDB_HTTP_READINESS_TIMEOUT=30
+        
+    grafana:
+      image: grafana/grafana
+      container_name: grafana.example.com
+      restart: always
+      ports:
+        - "3000:3000"
+      user: "0"
+      volumes:
+        - "./grafana-data:/var/lib/grafana"
+    
+    node-red:
+      image: nodered/node-red
+      container_name: node-red.example.com
+      restart: always
+      ports:
+        - "1880:1880"
+      volumes:
+        - "./node-red-data:/data"
+    
+    mosquitto:
+      image: eclipse-mosquitto
+      container_name: mosquitto.example.com
+      restart: always
+      # network_mode: host
+      ports:
+        - "1883:1883"
+        - "9001:9001"
+      volumes:
+        - ./mosquitto/conf:/mosquitto/conf
+        - ./mosquitto/data:/mosquitto/data
+        - ./mosquitto/log:/mosquitto/log
