@@ -1,0 +1,17 @@
+
+version: "2.4"
+services:
+  grafana:
+    image: grafana/grafana:latest-ubuntu
+    container_name: grafana.bit.lan
+    restart: always
+    user: www-data
+    mem_limit: 512M
+    network_mode: host
+    volumes:
+      - ../conf:/etc/grafana
+      - ../data:/var/lib/grafana
+
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+

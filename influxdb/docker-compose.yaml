@@ -1,0 +1,18 @@
+version: "2.4"
+
+services:
+  influxdb:
+    image: influxdb:2.1
+    container_name: influxdb.bit.lan
+    restart: always
+
+    mem_limit: 512M
+
+    network_mode: host
+
+    volumes:
+      - /srv/influxdb.bit.lan/data:/var/lib/influxdb2
+
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
