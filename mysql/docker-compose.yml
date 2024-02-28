@@ -1,0 +1,28 @@
+version: "2.4"
+
+name: mysql-dev-example-com
+
+services:
+
+  mysql:
+    image: mysql:8.3
+    
+    container_name: mysql.dev.example.com
+
+    restart: always
+
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      - ./mysql-conf/my.cnf:/root/.my.cnf
+
+    ports:
+      - "3306:3306"
+
+    labels:
+      - com.centurylinklabs.watchtower.enable=true

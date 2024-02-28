@@ -1,10 +1,18 @@
-version: "3"
+version: "2.4"
+
+name: nodered-example-com
+
 services: 
   node-red:
-    image: nodered/node-red
-    container_name: node-red
+    image: nodered/node-red:latest
+
+    container_name: nodered.example.com
+
     ports:
       - "1880:1880"
+
     volumes:
       - "./node-red-data:/data"
-    users: "0"
+
+    labels:
+      - com.centurylinklabs.watchtower.enable=true

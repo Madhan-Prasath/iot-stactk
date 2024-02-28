@@ -1,18 +1,25 @@
 version: "2.4"
 
+name: influxdb-example-com
+
 services:
   influxdb:
-    image: influxdb:2.1
-    container_name: influxdb.bit.lan
-    restart: always
+  image: influxdb:latest
 
-    mem_limit: 512M
-
-    network_mode: host
-
-    volumes:
-      - /srv/influxdb.bit.lan/data:/var/lib/influxdb2
-
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
+  container_name: influxdb.example.com
+  
+  restart: always
+  
+  ports:
+    - "8086:8086"        
+  
+  volumes:
+    - "./influxdb-data:/var/lib/influxdb"
+  
+  environment:
+    - INFLUXDB_ADMIN_USER_PASSWORD=${INFLUXDB_ADMIN_USER_PASSWORD}
+    - INFLUXDB_USER=${INFLUXDB_USER}
+    - INFLUXDB_USER_PASSWORD=${INFLUXDB_USER_PASSWORD}
+    - INFLUXDB_DB=${INFLUXDB_DB}
+    - INFLUXDB_HTTP_READINESS_TIMEOUT=${INFLUXDB_HTTP_READINESS_TIMEOUT}
 
