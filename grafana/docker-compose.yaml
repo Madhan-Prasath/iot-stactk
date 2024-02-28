@@ -13,8 +13,6 @@ services:
 
     user: www-data
     
-    network_mode: host
-    
     volumes:
       - ./conf:/etc/grafana
       - ./data:/var/lib/grafana
