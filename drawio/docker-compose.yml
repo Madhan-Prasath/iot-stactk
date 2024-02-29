@@ -1,0 +1,20 @@
+# Filename: docker-compose.yml
+
+version: '3.5'
+
+name: drawio-madhanprasath-in
+
+services:
+  drawio:
+    image: jgraph/drawio
+    container_name: drawio.example.com
+    restart: unless-stopped
+
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.drawio.rule=Host(`drawio.example.com`)
+      - traefik.http.routers.drawio.tls=true
+      - traefik.http.routers.drawio.tls.certresolver=lets-encrypt
+      - traefik.http.routers.drawio.service=drawio
+      - traefik.http.services.drawio.loadbalancer.server.port=8080
