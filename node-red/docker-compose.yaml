@@ -1,4 +1,6 @@
-version: "2.4"
+# Filename: docker-compose.yml
+
+version: "3.7"
 
 name: nodered-example-com
 
@@ -10,6 +12,9 @@ services:
 
     ports:
       - "1880:1880"
+
+    environment:
+      - TZ=Asia/Kolkata
 
     volumes:
       - "./node-red-data:/data"
